@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Spotify Trends 2024 — Interactive Music Visualization</title>
+  <link rel="icon" type="image/png" href="Spotify-Logo.png">
+  <!-- Libs -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- LOADING OVERLAY -->
+  <div id="loading"><div class="spinner"></div><div>Loading data…</div></div>
+
+  <!-- NAV: brand center -->
+  <nav class="nav surface">
+    <div class="nav-left"></div>
+    <div class="nav-center">
+      <span class="brand">Spotify Trends 2024</span>
+    </div>
+    <div class="nav-right"></div>
+  </nav>
+
+  <!-- HERO + GLOBAL FILTERS -->
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="filters">
+        <!-- Artist -->
+        <div class="field">
+          <label>Artist</label>
+          <div class="combo">
+            <input id="artistSearch" list="artistList" placeholder="Search / choose artist…" autocomplete="off" />
+            <button id="btnClearArtist" class="icon-btn" title="Clear artist" aria-label="Clear artist">×</button>
+          </div>
+          <datalist id="artistList"></datalist>
+        </div>
+
+        <!-- Explicit -->
+        <div class="field">
+          <label>Explicit</label>
+          <select id="explicitFilter">
+            <option value="all" selected>All</option>
+            <option value="1">Explicit only</option>
+            <option value="0">Non-explicit</option>
+          </select>
+        </div>
+
+        <!-- Search Track + clear -->
+        <div class="field grow">
+          <label>Search Track</label>
+          <div class="combo">
+            <input id="trackSearch" placeholder="Type a track title to highlight…" />
+            <button id="btnClearTrack" class="icon-btn" title="Clear track" aria-label="Clear track">×</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- KPI cards -->
+      <div class="kpis">
+        <div class="kpi" data-k="tracks"><div class="big">0</div><div class="lbl">Tracks</div></div>
+        <div class="kpi" data-k="artists"><div class="big">0</div><div class="lbl">Unique Artists</div></div>
+        <div class="kpi" data-k="explicit"><div class="big">0%</div><div class="lbl">% Explicit</div></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- GRID -->
+  <main>
+    <section class="grid">
+      <article class="card surface">
+        <div class="card-head">
+          <h2>Top 100 Songs by Streams</h2>
+          <div class="right">
+            <label class="tiny">Sort</label>
+            <select id="barSort">
+              <option value="streams" selected>by Streams</option>
+              <option value="az">A → Z</option>
+            </select>
+          </div>
+        </div>
+        <div id="barChart"></div>
+      </article>
+
+      <article class="card surface">
+        <div class="card-head"><h2>Explicit vs. Non-Explicit</h2></div>
+        <div id="donutChart" class="center"></div>
+        <p id="explicitNarrative" class="narrative"></p>
+      </article>
+
+      <article class="card surface">
+        <div class="card-head">
+          <h2>Artist Consistency</h2>
+          <div class="right">
+            <label class="tiny">Scope</label>
+            <select id="artistScope">
+              <option value="top5">Top 5</option>
+              <option value="top10" selected>Top 10</option>
+              <option value="all">All (max 30)</option>
+            </select>
+          </div>
+        </div>
+        <div id="boxPlot"></div>
+      </article>
+
+      <article class="card surface">
+        <div class="card-head">
+          <h2>TikTok Engagement</h2>
+          <div class="right">
+            <label class="tiny">Color by</label>
+            <select id="scatterColorBy">
+              <option value="Artist" selected>Artist</option>
+              <option value="Explicit Track">Explicit Track</option>
+            </select>
+            <button id="btnScatterPng" class="btn ghost tiny">Export PNG</button>
+          </div>
+        </div>
+        <div id="scatter3D"></div>
+      </article>
+
+      <article class="card surface">
+        <div class="card-head">
+          <h2>Spotify ↔ TikTok Correlations</h2>
+          <div class="right"><button id="btnCorrPng" class="btn ghost tiny">Export PNG</button></div>
+        </div>
+        <div id="corr3D"></div>
+        <p id="corrNote" class="narrative"></p>
+      </article>
+    </section>
+  </main>
+
+  <footer></footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
