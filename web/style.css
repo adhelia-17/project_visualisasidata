@@ -1,0 +1,31 @@
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #312150;
+  color: #fff;
+  text-align: center;
+}
+
+#chart {
+  width: 95%;
+  margin: auto;
+}
+
+.bar {
+  fill: #1DB954;
+  transition: fill 0.2s;
+}
+
+.bar:hover {
+  fill: #1ed760;
+}
+
+.tooltip {
+  position: absolute;
+  background-color: #333;
+  color: #fff;
+  padding: 6px;
+  border-radius: 4px;
+  pointer-events: none;
+  font-size: 12px;
+}
